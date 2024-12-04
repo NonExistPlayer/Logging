@@ -2,8 +2,8 @@
 
 public class Message(string? fMes, string uMes, ILogLevel lLvl, ConsoleColor color)
 {
-    public string? FormatedMessage { get; } = fMes;
-    public string UnformatedMessage { get; } = uMes;
+    public string? FormattedMessage { get; } = fMes;
+    public string UnformattedMessage { get; } = uMes;
     public string? Caller { get; }
 
     public ILogLevel LogLevel { get; } = lLvl;

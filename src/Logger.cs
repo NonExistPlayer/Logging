@@ -74,7 +74,7 @@ public class Logger : IFormatableLogger, IDebugLogger, IConsoleLogger, IFileLogg
         lock (this)
         {
             if (WriteToDebug)
-                Debug.Write(message.FormatedMessage);
+                Debug.Write(message.FormattedMessage);
 
             if (IsConsoleAvaliable && WriteToConsole)
             {
@@ -83,9 +83,9 @@ public class Logger : IFormatableLogger, IDebugLogger, IConsoleLogger, IFileLogg
                     Console.ForegroundColor = message.Color;
 
                     if (message.IsError)
-                        Console.Error.WriteLine(message.FormatedMessage);
+                        Console.Error.WriteLine(message.FormattedMessage);
                     else
-                        Console.WriteLine(message.FormatedMessage);
+                        Console.WriteLine(message.FormattedMessage);
 
                     Console.ResetColor();
                 }
