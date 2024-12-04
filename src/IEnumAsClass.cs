@@ -12,8 +12,6 @@ public interface IEnumAsClass
     /// </summary>
     ushort Value { get; }
 
-    string ToString();
-
     /// <summary>
     /// The maximum value allowed for this type.
     /// </summary>

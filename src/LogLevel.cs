@@ -2,7 +2,7 @@
 
 namespace NonExistPlayer.Logging;
 
-public sealed class LogLevel : ILogLevel
+public sealed class LogLevel : ILogLevel, IEnumAsClass
 {
     public LogLevel(ushort level)
     {

@@ -6,6 +6,10 @@
     <Nullable>enable</Nullable>
     <RootNamespace>NonExistPlayer.Logging</RootNamespace>
     <AssemblyName>NonExistPlayer.Logging</AssemblyName>
+    <SignAssembly>False</SignAssembly>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>Logging Library</Title>
+    <Authors>NonExistPlayer</Authors>
   </PropertyGroup>
 
 </Project>

@@ -2,6 +2,8 @@
 
 public interface ILogLevel : IEnumAsClass
 {
+    string ToString();
+
     ConsoleColor GetColor();
 
     bool IsError();
