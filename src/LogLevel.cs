@@ -7,7 +7,7 @@ public sealed class LogLevel : ILogLevel
     public LogLevel(ushort level)
     {
         if (level > MaxLevel) throw new ArgumentOutOfRangeException(nameof(level));
-        Level = level;
+        Value = level;
     }
 
     public static LogLevel Info { get; } = new(0);
@@ -15,6 +15,9 @@ public sealed class LogLevel : ILogLevel
     public static LogLevel Error { get; } = new(2);
 
     public const ushort MaxLevel = 2;
+
+    public static ushort Max => MaxLevel;
+    public static ushort Min => 0;
 
     public static Dictionary<ushort, string> LevelNamePairs { get; } = new()
     {
@@ -30,13 +33,13 @@ public sealed class LogLevel : ILogLevel
         { 2, Red },
     };
 
-    public ushort Level { get; }
+    public ushort Value { get; }
 
-    public ConsoleColor GetColor() => LevelColorPairs[Level];
+    public ConsoleColor GetColor() => LevelColorPairs[Value];
 
-    public bool IsError() => Level == 2;
+    public bool IsError() => Value == 2;
 
-    public override string ToString() => LevelNamePairs[Level];
+    public override string ToString() => LevelNamePairs[Value];
 
     public static LogLevel? FromEnum(object enumval, Type enumtype)
     {

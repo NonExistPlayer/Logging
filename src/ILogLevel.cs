@@ -1,11 +1,7 @@
 ﻿namespace NonExistPlayer.Logging;
 
-public interface ILogLevel
+public interface ILogLevel : IEnumAsClass
 {
-    ushort Level { get; }
-
-    string ToString();
-
     ConsoleColor GetColor();
 
     bool IsError();
