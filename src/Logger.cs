@@ -52,6 +52,8 @@ public class Logger : IFormatableLogger, IDebugLogger, IConsoleLogger, IFileLogg
         return mes;
     }
 
+    public Message Log(object? value, ILogLevel? level = null) => Log(value!.ToString()!, level);
+
     protected string FormatMessage(string unformatedmessage, ILogLevel level)
     {
         MethodBase method = new StackFrame(1)!.GetMethod()!;
@@ -96,7 +98,7 @@ public class Logger : IFormatableLogger, IDebugLogger, IConsoleLogger, IFileLogg
     }
 }
 
-public class Logger<TLogLevel> : Logger, IFormatableLogger, IDebugLogger, IConsoleLogger, IFileLogger, ILogger where TLogLevel : ILogLevel
+public class Logger<TLogLevel> : Logger, ILogger<TLogLevel>, IFormatableLogger, IDebugLogger, IConsoleLogger, IFileLogger, ILogger where TLogLevel : ILogLevel
 {
     public Logger(Stream? stream, TLogLevel @default) : base(stream)
     {
@@ -144,7 +146,10 @@ public class Logger<TLogLevel> : Logger, IFormatableLogger, IDebugLogger, IConso
 
         return mes;
     }
+    public Message Log(object? value, TLogLevel level) => Log(value!.ToString()!, level);
 
     public Message Warn(string message)  => Log(message, WarningLogLevel ?? throw new NullReferenceException("'WarningLogLevel' was null."));
+    public Message Warn(object? value)   => Warn(value!.ToString()!);
     public Message Error(string message) => Log(message, ErrorLogLevel ?? throw new NullReferenceException("'ErrorLogLevel' was null."));
+    public Message Error(object? value)  => Error(value!.ToString()!);
 }

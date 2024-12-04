@@ -12,5 +12,3 @@ public interface ILogLevel
 
     static abstract ILogLevel FromUInt16(ushort value);
 }
-
-public interface ILogLevel<self>
