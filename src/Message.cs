@@ -1,5 +1,12 @@
 ﻿namespace NonExistPlayer.Logging;
 
+/// <summary>
+/// Represents information about the message that the <see cref="ILogger"/> outputs.
+/// </summary>
+/// <param name="fMes">Formatted message.</param>
+/// <param name="uMes">Unformatted message.</param>
+/// <param name="lLvl">Log level.</param>
+/// <param name="color">Console color.</param>
 public class Message(string? fMes, string uMes, ILogLevel lLvl, ConsoleColor color)
 {
     public string? FormattedMessage { get; } = fMes;

@@ -3,16 +3,33 @@ using System.Reflection;
 
 namespace NonExistPlayer.Logging;
 
+/// <summary>
+/// Built-in <see cref="ILogger"/> implementation.
+/// </summary>
 public class Logger : IFormatableLogger, IDebugLogger, IConsoleLogger, IFileLogger, ILogger
 {
+    /// <summary>
+    /// The output format for default message formatting.
+    /// </summary>
     public const string DefaultFormat = "[%time] [%thread/%TYPE] (%caller): %mes";
 
+    /// <summary>
+    /// Initializes the <see cref="Logger"/> class.
+    /// </summary>
     public Logger() { }
+    /// <summary>
+    /// Initializes the <see cref="Logger"/> class with a file stream.
+    /// </summary>
+    /// <param name="stream">File stream.</param>
     public Logger(Stream? stream)
     {
         if (stream != null)
             FileStream = new StreamWriter(stream);
     }
+    /// <summary>
+    /// Initializes the <see cref="Logger"/> class with a file stream.
+    /// </summary>
+    /// <param name="stream">File stream</param>
     public Logger(TextWriter? stream)
     {
         FileStream = stream;

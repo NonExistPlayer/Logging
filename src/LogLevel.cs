@@ -2,6 +2,11 @@
 
 namespace NonExistPlayer.Logging;
 
+/// <summary>
+/// Built-in <see cref="ILogLevel"/> implementation.
+/// Represents the standard concept of logging level.
+/// This class cannot be inherited.
+/// </summary>
 public sealed class LogLevel : ILogLevel, IEnumAsClass
 {
     public LogLevel(ushort level)
@@ -40,24 +45,6 @@ public sealed class LogLevel : ILogLevel, IEnumAsClass
     public bool IsError() => Value == 2;
 
     public override string ToString() => LevelNamePairs[Value];
-
-    public static LogLevel? FromEnum(object enumval, Type enumtype)
-    {
-        if (enumval is null || enumtype is null) return null;
-        
-        string? name = Enum.GetName(enumtype, enumval);
-
-        if (name is null) return null;
-
-        Type self = typeof(LogLevel);
-
-        var property = self.GetProperties().Where(p => p.PropertyType == self).FirstOrDefault(p => p.Name == name);
-
-        if (property is null) return null;
-        return property.GetValue(null) as LogLevel;
-    }
-
-    public static ILogLevel FromUInt16(ushort level) => new LogLevel(level);
 
     public static implicit operator LogLevel(ushort level) => new(level);
 }
