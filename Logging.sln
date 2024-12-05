@@ -3,20 +3,26 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logging", "src\Logging.csproj", "{0F5F91BC-2E69-4AF2-A9BB-9C0B9CF1B1D7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NonExistPlayer.Logging", "src\NonExistPlayer.Logging.csproj", "{0F5F91BC-2E69-4AF2-A9BB-9C0B9CF1B1D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NonExistPlayer.Logging.Tests", "tests\NonExistPlayer.Logging.Tests.csproj", "{D05146A6-8B5F-4F46-A485-A95603D59ABF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{0F5F91BC-2E69-4AF2-A9BB-9C0B9CF1B1D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0F5F91BC-2E69-4AF2-A9BB-9C0B9CF1B1D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F5F91BC-2E69-4AF2-A9BB-9C0B9CF1B1D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F5F91BC-2E69-4AF2-A9BB-9C0B9CF1B1D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D05146A6-8B5F-4F46-A485-A95603D59ABF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D05146A6-8B5F-4F46-A485-A95603D59ABF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D05146A6-8B5F-4F46-A485-A95603D59ABF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D05146A6-8B5F-4F46-A485-A95603D59ABF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal

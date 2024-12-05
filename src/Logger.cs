@@ -96,7 +96,7 @@ public class Logger : IFormatableLogger, IDebugLogger, IConsoleLogger, IFileLogg
             if (!VerbosityLevel.PreWrite(message)) return;
 
             if (WriteToDebug && VerbosityLevel.CanWriteToDebug())
-                Debug.Write(message.FormattedMessage);
+                Debug.WriteLine(message.FormattedMessage);
 
             if (IsConsoleAvaliable && WriteToConsole && VerbosityLevel.CanWriteToConsole())
             {

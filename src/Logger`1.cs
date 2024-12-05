@@ -87,7 +87,7 @@ public class Logger<TLogLevel> :
             level.GetColor()
         );
 
-        Log(mes);
+        base.Log(mes);
 
         msgs.Add(mes);
 
