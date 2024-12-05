@@ -1,6 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-namespace NonExistPlayer.Logging.Tests;
+﻿namespace NonExistPlayer.Logging.Tests;
 
 [TestClass]
 public sealed class LoggerTest

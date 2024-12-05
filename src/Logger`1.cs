@@ -1,4 +1,6 @@
-﻿namespace NonExistPlayer.Logging;
+﻿using System.Diagnostics;
+
+namespace NonExistPlayer.Logging;
 
 /// <summary>
 /// Build-in <see cref="ILogger{TLogLevel}"/> implementation.
@@ -67,44 +69,28 @@ public class Logger<TLogLevel> :
     }
 
     /// <summary>
+    /// <inheritdoc cref="ILogger{TLogLevel}.Log(string, TLogLevel)"/>
+    /// </summary>
+    public Message Log(string message, TLogLevel level) => BaseLog(message, level);
+    /// <summary>
     /// Logs a <paramref name="message"/>.
     /// </summary>
-    public Message Log(string message) => Log(message, Default);
+    public Message Log(string message) => BaseLog(message, Default);
     /// <summary>
     /// Logs a <paramref name="value"/>.
     /// </summary>
-    public Message Log(object? value) => Log(value!.ToString()!, Default);
+    public Message Log(object? value) => BaseLog(value!.ToString()!, Default);
 
-    /// <summary>
-    /// <inheritdoc cref="ILogger.Log(string, ILogLevel?)"/>
-    /// </summary>
-    public Message Log(string message, TLogLevel level)
-    {
-        Message mes = new(
-            FormatMessage(message, level),
-            message,
-            level,
-            level.GetColor()
-        );
-
-        base.Log(mes);
-
-        msgs.Add(mes);
-
-        MessageWrited?.Invoke(this, new(mes));
-
-        return mes;
-    }
     /// <summary>
     /// <inheritdoc cref="ILogger.Log(object?, ILogLevel?)"/>
     /// </summary>
-    public Message Log(object? value, TLogLevel level) => Log(value!.ToString()!, level);
+    public Message Log(object? value, TLogLevel level) => BaseLog(value!.ToString()!, level);
 
     /// <summary>
     /// Logs a <paramref name="message"/> with the logging level specified in the property <see cref="WarningLogLevel"/>
     /// </summary>
     /// <exception cref="NullReferenceException"/>
-    public Message Warn(string message) => Log(message, WarningLogLevel ?? throw new NullReferenceException("'WarningLogLevel' was null."));
+    public Message Warn(string message) => BaseLog(message, WarningLogLevel ?? throw new NullReferenceException("'WarningLogLevel' was null."));
     /// <summary>
     /// Logs a <paramref name="value"/> with the logging level specified in the property <see cref="WarningLogLevel"/>
     /// </summary>
@@ -114,7 +100,7 @@ public class Logger<TLogLevel> :
     /// Logs a <paramref name="message"/> with the logging level specified in the property <see cref="ErrorLogLevel"/>
     /// </summary>
     /// <exception cref="NullReferenceException"/>
-    public Message Error(string message) => Log(message, ErrorLogLevel ?? throw new NullReferenceException("'ErrorLogLevel' was null."));
+    public Message Error(string message) => BaseLog(message, ErrorLogLevel ?? throw new NullReferenceException("'ErrorLogLevel' was null."));
     /// <summary>
     /// Logs a <paramref name="value"/> with the logging level specified in the property <see cref="ErrorLogLevel"/>
     /// </summary>

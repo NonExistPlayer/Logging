@@ -7,7 +7,7 @@
 /// <param name="uMes">Unformatted message.</param>
 /// <param name="lLvl">Log level.</param>
 /// <param name="color">Console color.</param>
-public class Message(string? fMes, string uMes, ILogLevel lLvl, ConsoleColor color)
+public class Message(string? fMes, string uMes, ILogLevel lLvl)
 {
     public string? FormattedMessage { get; } = fMes;
     public string UnformattedMessage { get; } = uMes;
@@ -15,5 +15,5 @@ public class Message(string? fMes, string uMes, ILogLevel lLvl, ConsoleColor col
 
     public ILogLevel LogLevel { get; } = lLvl;
     public bool IsError => LogLevel.IsError();
-    public ConsoleColor Color { get; } = color;
+    public ConsoleColor Color => LogLevel.GetColor();
 }

@@ -50,53 +50,37 @@ public class Logger : IFormatableLogger, IDebugLogger, IConsoleLogger, IFileLogg
     public bool WriteToConsole { get; set; }
     public bool IsConsoleAvaliable { get; private set; } = !OperatingSystem.IsAndroid() || !OperatingSystem.IsIOS();
 
-    public Message Log(string message, ILogLevel? level = null)
+    public Message Log(string message, ILogLevel? level = null) => BaseLog(message, level ?? Default);
+
+    public Message Log(object? value, ILogLevel? level = null) => BaseLog(value!.ToString()!, level ?? Default);
+
+    protected string FormatMessage(string unformatedmessage, ILogLevel level, StackFrame frame)
     {
-        level ??= Default;
-
-        Message mes = new(
-            FormatMessage(message, level),
-            message,
-            level,
-            level.GetColor()
-        );
-
-        Log(mes);
-
-        msgs.Add(mes);
-
-        MessageWrited?.Invoke(this, new(mes));
-
-        return mes;
-    }
-
-    public Message Log(object? value, ILogLevel? level = null) => Log(value!.ToString()!, level);
-
-    protected string FormatMessage(string unformatedmessage, ILogLevel level)
-    {
-        MethodBase method = new StackFrame(1)!.GetMethod()!;
+        MethodBase method = frame.GetMethod()!;
         Thread current = Thread.CurrentThread;
 
         return OutputFormat
                     .Replace("%time", DateTime.Now.ToString("HH:mm:ss"))
                     .Replace("%thread", current.Name ?? $"Thread #{current.ManagedThreadId}")
-                    .Replace("%caller", $"{method.DeclaringType?.Namespace}.{method.Name}")
+                    .Replace("%caller", $"{method.DeclaringType?.Namespace}.{method.DeclaringType?.Name}.{method.Name}")
                     .Replace("%TYPE", level.ToString().ToUpper())
                     .Replace("%Type", level.ToString())
                     .Replace("%type", level.ToString().ToLower())
                     .Replace("%mes", unformatedmessage);
     }
 
-    protected void Log(Message message)
+    protected Message BaseLog(string umes, ILogLevel level)
     {
-        if (!VerbosityLevel.CanWrite()) return;
+        string fmes = FormatMessage(umes, level, new(2));
+        Message message = new(fmes, umes, level);
+        if (!VerbosityLevel.CanWrite()) return message;
 
         lock (this)
         {
-            if (!VerbosityLevel.PreWrite(message)) return;
+            if (!VerbosityLevel.PreWrite(message)) return message;
 
             if (WriteToDebug && VerbosityLevel.CanWriteToDebug())
-                Debug.WriteLine(message.FormattedMessage);
+                Debug.WriteLine(fmes);
 
             if (IsConsoleAvaliable && WriteToConsole && VerbosityLevel.CanWriteToConsole())
             {
@@ -104,10 +88,10 @@ public class Logger : IFormatableLogger, IDebugLogger, IConsoleLogger, IFileLogg
                 {
                     Console.ForegroundColor = message.Color;
 
-                    if (message.IsError)
-                        Console.Error.WriteLine(message.FormattedMessage);
+                    if (level.IsError())
+                        Console.Error.WriteLine(fmes);
                     else
-                        Console.WriteLine(message.FormattedMessage);
+                        Console.WriteLine(fmes);
 
                     Console.ResetColor();
                 }
@@ -118,7 +102,13 @@ public class Logger : IFormatableLogger, IDebugLogger, IConsoleLogger, IFileLogg
             }
 
             if (VerbosityLevel.CanWriteToFile())
-                FileStream?.WriteLine(message.FormattedMessage);
+                FileStream?.WriteLine(fmes);
         }
+
+        msgs.Add(message);
+
+        MessageWrited?.Invoke(this, new(message));
+
+        return message;
     }
 }
