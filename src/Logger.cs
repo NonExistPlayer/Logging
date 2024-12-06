@@ -11,7 +11,7 @@ public class Logger : IFormatableLogger, IDebugLogger, IConsoleLogger, IFileLogg
     /// <summary>
     /// The output format for default message formatting.
     /// </summary>
-    public const string DefaultFormat = "[%time] [%thread/%TYPE] (%caller): %mes";
+    public const string DefaultFormat = "[%time] [%thread/%TYPE] (%namespace.%class.%method): %mes";
 
     /// <summary>
     /// Initializes the <see cref="Logger"/> class.
@@ -62,7 +62,9 @@ public class Logger : IFormatableLogger, IDebugLogger, IConsoleLogger, IFileLogg
         return OutputFormat
                     .Replace("%time", DateTime.Now.ToString("HH:mm:ss"))
                     .Replace("%thread", current.Name ?? $"Thread #{current.ManagedThreadId}")
-                    .Replace("%caller", $"{method.DeclaringType?.Namespace}.{method.DeclaringType?.Name}.{method.Name}")
+                    .Replace("%namespace", method.DeclaringType?.Namespace!)
+                    .Replace("%class", method.DeclaringType?.Name)
+                    .Replace("%method", method.Name)
                     .Replace("%TYPE", level.ToString().ToUpper())
                     .Replace("%Type", level.ToString())
                     .Replace("%type", level.ToString().ToLower())
