@@ -45,7 +45,7 @@ public class Logger : IFormatableLogger, IDebugLogger, IConsoleLogger, IFileLogg
     public ILogLevel Default { get; set; } = LogLevel.Info;
     public IVerbosityLevel VerbosityLevel { get; set; } = Logging.VerbosityLevel.Maximal;
     public string OutputFormat { get; set; } = DefaultFormat;
-    public TextWriter? FileStream { get; }
+    public TextWriter? FileStream { get; set; }
     public bool WriteToDebug { get; set; } = false;
     public bool WriteToConsole { get; set; }
     public bool IsConsoleAvaliable { get; private set; } = !OperatingSystem.IsAndroid() || !OperatingSystem.IsIOS();
