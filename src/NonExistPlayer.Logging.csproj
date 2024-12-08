@@ -12,10 +12,11 @@
     <Authors>NonExistPlayer</Authors>
     <PackageProjectUrl>https://github.com/NonExistPlayer/Logging</PackageProjectUrl>
     <Copyright>Copyright (c) 2024 Ilya Korobov</Copyright>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageReadmeFile>NuGet-Readme.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/NonExistPlayer/Logging.git</RepositoryUrl>
     <Description>A .NET Logging Library.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,7 +24,7 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-    <None Include="..\README.md">
+    <None Include="..\NuGet-Readme.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
