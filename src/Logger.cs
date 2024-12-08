@@ -48,7 +48,7 @@ public class Logger : IFormatableLogger, IDebugLogger, IConsoleLogger, IFileLogg
     public TextWriter? FileStream { get; set; }
     public bool WriteToDebug { get; set; } = false;
     public bool WriteToConsole { get; set; }
-    public bool IsConsoleAvaliable { get; private set; } = !OperatingSystem.IsAndroid() || !OperatingSystem.IsIOS();
+    public bool IsConsoleAvaliable { get; private set; } = !OperatingSystem.IsAndroid() && !OperatingSystem.IsIOS();
 
     public Message Log(string message, ILogLevel? level = null) => BaseLog(message, level ?? Default);
 
@@ -97,7 +97,7 @@ public class Logger : IFormatableLogger, IDebugLogger, IConsoleLogger, IFileLogg
 
                     Console.ResetColor();
                 }
-                catch (IOException)
+                catch
                 {
                     IsConsoleAvaliable = false;
                 }

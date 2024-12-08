@@ -95,7 +95,7 @@ public class Logger<TLogLevel> :
     /// Logs a <paramref name="value"/> with the logging level specified in the property <see cref="WarningLogLevel"/>
     /// </summary>
     /// <exception cref="NullReferenceException"/>
-    public Message Warn(object? value) => Warn(value!.ToString()!);
+    public Message Warn(object? value) => BaseLog(value!.ToString()!, WarningLogLevel ?? throw new NullReferenceException("'WarningLogLevel' was null."));
     /// <summary>
     /// Logs a <paramref name="message"/> with the logging level specified in the property <see cref="ErrorLogLevel"/>
     /// </summary>
@@ -105,5 +105,5 @@ public class Logger<TLogLevel> :
     /// Logs a <paramref name="value"/> with the logging level specified in the property <see cref="ErrorLogLevel"/>
     /// </summary>
     /// <exception cref="NullReferenceException"/>
-    public Message Error(object? value) => Error(value!.ToString()!);
+    public Message Error(object? value) => BaseLog(value!.ToString()!, ErrorLogLevel ?? throw new NullReferenceException("'ErrorLogLevel' was null."));
 }
